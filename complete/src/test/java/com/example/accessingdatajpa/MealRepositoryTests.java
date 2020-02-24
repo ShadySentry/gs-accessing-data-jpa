@@ -31,14 +31,14 @@ public class MealRepositoryTests {
 	private TestEntityManager entityManager;
 
 	@Autowired
-	private MealRepository customers;
+	private MealRepository mealRepository;
 
 	@Test
 	public void testFindByLastName() {
 		Meal meal = new Meal("desc", 1000);
-		entityManager.persist(customers);
+		entityManager.persist(mealRepository);
 
-		List<Meal> findByDesc = customers.findByDescription(meal.getDescription());
+		List<Meal> findByDesc = mealRepository.findByDescription(meal.getDescription());
 
 		assertThat(findByDesc).extracting(Meal::getDescription).containsOnly(meal.getDescription());
 	}
