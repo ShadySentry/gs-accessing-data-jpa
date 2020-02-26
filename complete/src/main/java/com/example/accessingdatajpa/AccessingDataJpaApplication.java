@@ -17,21 +17,25 @@ public class AccessingDataJpaApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(MealRepository repository) {
+	public CommandLineRunner demo(MealRepository mealRepository, MenuRepository menuRepository) {
 		return (args) -> {
 			// save a few customers
-			repository.save(new Meal("carpachio", 5000));
-			repository.save(new Meal("beef",1000));
+			mealRepository.save(new Meal("carpachio", 5000));
+			mealRepository.save(new Meal("beef",1000));
+
+			menuRepository.save(new Menu("CastelvaniaMenu"));
+			menuRepository.save(new Menu("Torchello"));
+
 			// fetch all customers
-			log.info("Customers found with findAll():");
+			log.info("Meals found with findAll():");
 			log.info("-------------------------------");
-			for (Meal customer : repository.findAll()) {
+			for (Meal customer : mealRepository.findAll()) {
 				log.info(customer.toString());
 			}
 			log.info("");
 
 			// fetch an individual customer by ID
-			Meal customer = repository.findById(1);
+			Meal customer = mealRepository.findById(1);
 			log.info("Meal found with findById(1):");
 			log.info("--------------------------------");
 			log.info(customer.toString());
@@ -40,13 +44,34 @@ public class AccessingDataJpaApplication {
 			// fetch customers by last name
 			log.info("Meal found with description('beef'):");
 			log.info("--------------------------------------------");
-			repository.findByDescription("beef").forEach(beef -> {
+			mealRepository.findByDescription("beef").forEach(beef -> {
 				log.info(beef.toString());
 			});
-			// for (Customer bauer : repository.findByLastName("Bauer")) {
+			// for (Customer bauer : mealRepository.findByLastName("Bauer")) {
 			// 	log.info(bauer.toString());
 			// }
+
 			log.info("");
+			log.info("Menus found with findAll():");
+			log.info("-------------------------------");
+			for (Menu menu:menuRepository.findAll()){
+				log.info(menu.toString());
+			}
+
+			log.info("");
+			log.info("Menu found with id");
+			Menu menu = menuRepository.findById(3L).orElse(null);
+			log.info(menu.toString());
+
+
+
+			log.info("");
+			log.info("Found with description 'Torchello':");
+			log.info(menuRepository.findByDescription("Torchello").toString());
+
+
+			log.info("-------------------------------");
+			log.info("-------------------------------");
 		};
 	}
 

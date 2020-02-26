@@ -1,10 +1,8 @@
 package com.example.accessingdatajpa;
 
 import lombok.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,6 +16,9 @@ public class Meal {
 	private String description;
 	private Integer priceInCents;
 
+	@ManyToMany(mappedBy = "meals",fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+	private List<Menu> menus;
+
 	protected Meal() {}
 
 
@@ -26,4 +27,12 @@ public class Meal {
 		this.priceInCents=priceInCents;
 	}
 
+	@Override
+	public String toString() {
+		return "Meal{" +
+				"id=" + id +
+				", description='" + description + '\'' +
+				", priceInCents=" + priceInCents +
+				'}';
+	}
 }
