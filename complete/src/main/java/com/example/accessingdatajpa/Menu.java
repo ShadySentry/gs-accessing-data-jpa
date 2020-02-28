@@ -1,15 +1,20 @@
 package com.example.accessingdatajpa;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+//@ToString
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,8 +24,8 @@ public class Menu {
     private boolean enabled;
     private String description;
 
-    @ManyToMany(mappedBy = "menus",fetch = FetchType.EAGER)
-    private List<Meal> meals;
+    @ManyToMany(mappedBy = "menus")
+    private List<Meal> meals = new ArrayList<>();
 
     protected Menu(){}
 
@@ -29,7 +34,6 @@ public class Menu {
             this.description=description;
         }
     }
-
     @Override
     public String toString() {
         return "Menu{" +

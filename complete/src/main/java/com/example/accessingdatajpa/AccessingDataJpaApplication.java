@@ -20,11 +20,15 @@ public class AccessingDataJpaApplication {
 	public CommandLineRunner demo(MealRepository mealRepository, MenuRepository menuRepository) {
 		return (args) -> {
 			// save a few customers
-			mealRepository.save(new Meal("carpachio", 5000));
-			mealRepository.save(new Meal("beef",1000));
+			Meal meal1= new Meal("carpachio", 5000);
+			mealRepository.save(meal1);
+			Meal meal2 = new Meal("beef", 1000);
+			mealRepository.save(meal2);
 
-			menuRepository.save(new Menu("CastelvaniaMenu"));
-			menuRepository.save(new Menu("Torchello"));
+			Menu menu1 = new Menu("CastelvaniaMenu");
+			menuRepository.save(menu1);
+			Menu menu2 = new Menu("Torchello");
+			menuRepository.save(menu2);
 
 			// fetch all customers
 			log.info("Meals found with findAll():");
@@ -34,11 +38,11 @@ public class AccessingDataJpaApplication {
 			}
 			log.info("");
 
-			// fetch an individual customer by ID
-			Meal customer = mealRepository.findById(1);
+			// fetch an individual meal by ID
+			Meal meal = mealRepository.findById(1);
 			log.info("Meal found with findById(1):");
 			log.info("--------------------------------");
-			log.info(customer.toString());
+			log.info(meal.toString());
 			log.info("");
 
 			// fetch customers by last name
@@ -69,7 +73,13 @@ public class AccessingDataJpaApplication {
 			log.info("Found with description 'Torchello':");
 			log.info(menuRepository.findByDescription("Torchello").toString());
 
+			meal1.addMenu(menu1);
 
+			Meal updatedMeal= mealRepository.save(meal1);
+			log.info("updated meal: "+updatedMeal.getDescription()+"-> \n" + updatedMeal);
+
+			Menu updatedMenu = menuRepository.findById(menu1.getId()).orElse(null);
+			log.info("updatedMenu: "+"\n" + updatedMenu);
 			log.info("-------------------------------");
 			log.info("-------------------------------");
 		};

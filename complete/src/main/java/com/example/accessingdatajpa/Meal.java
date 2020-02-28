@@ -1,13 +1,16 @@
 package com.example.accessingdatajpa;
 
 import lombok.*;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class Meal {
 
 	@Id
@@ -16,8 +19,13 @@ public class Meal {
 	private String description;
 	private Integer priceInCents;
 
-	@ManyToMany(mappedBy = "meals",fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-	private List<Menu> menus;
+	@ManyToMany(/*mappedBy = "meals",*/
+			fetch = FetchType.EAGER,
+			cascade = CascadeType.PERSIST)
+	@JoinTable(name = "meal_menu",
+	joinColumns = @JoinColumn(name = "meal_id"),
+	inverseJoinColumns = @JoinColumn(name = "menu_id"))
+	private List<Menu> menus = new ArrayList<>();
 
 	protected Meal() {}
 
@@ -27,12 +35,12 @@ public class Meal {
 		this.priceInCents=priceInCents;
 	}
 
-	@Override
-	public String toString() {
-		return "Meal{" +
-				"id=" + id +
-				", description='" + description + '\'' +
-				", priceInCents=" + priceInCents +
-				'}';
+	public void	addMenu(Menu menu){
+		Assert.notNull(menu,"menu can't be null");
+		if(!menus.contains(menu)){
+			menus.add(menu);
+		}
 	}
+
+
 }
