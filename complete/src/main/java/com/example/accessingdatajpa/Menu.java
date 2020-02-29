@@ -24,8 +24,11 @@ public class Menu {
     private boolean enabled;
     private String description;
 
-    @ManyToMany(mappedBy = "menus")
+    @ManyToMany(mappedBy = "menus",fetch = FetchType.EAGER)
     private List<Meal> meals = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    private Restaurant restaurant;
 
     protected Menu(){}
 
@@ -42,7 +45,24 @@ public class Menu {
                 ", totalVotes=" + totalVotes +
                 ", enabled=" + enabled +
                 ", description='" + description + '\'' +
+                "meals:"+mealsAsString()+
                 '}';
+    }
+
+    String mealsAsString(){
+        if(meals.isEmpty()){
+            return "{No Meals}";
+        }
+        StringBuilder mealsAsString = new StringBuilder();
+        for(Meal meal:meals){
+            mealsAsString.append("{");
+            mealsAsString.append("ID = "+meal.getId().toString());
+            mealsAsString.append("description ="+meal.getDescription());
+            mealsAsString.append("\tprice in cents = "+meal.getPriceInCents());
+            mealsAsString.append("}");
+        }
+
+        return mealsAsString.toString();
     }
 
 
