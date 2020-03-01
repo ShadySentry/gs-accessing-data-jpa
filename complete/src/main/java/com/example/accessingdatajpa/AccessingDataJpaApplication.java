@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.ResultSet;
+
 @SpringBootApplication
 public class AccessingDataJpaApplication {
 
@@ -17,7 +19,9 @@ public class AccessingDataJpaApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(MealRepository mealRepository, MenuRepository menuRepository) {
+	public CommandLineRunner demo(MealRepository mealRepository,
+								  MenuRepository menuRepository,
+								  RestaurantRepository restaurantRepository) {
 		return (args) -> {
 			// save a few customers
 			Meal meal1= new Meal("carpachio", 5000);
@@ -27,8 +31,13 @@ public class AccessingDataJpaApplication {
 
 			Menu menu1 = new Menu("CastelvaniaMenu");
 			menuRepository.save(menu1);
-			Menu menu2 = new Menu("Torchello");
+			Menu menu2 = new Menu("Torchello's menu");
 			menuRepository.save(menu2);
+
+			Restaurant restaurant1 = new Restaurant("Castelvania");
+			restaurantRepository.save(restaurant1);
+			Restaurant restaurant2 = new Restaurant("Torchello");
+			restaurantRepository.save(restaurant2);
 
 			// fetch all customers
 			log.info("Meals found with findAll():");
@@ -70,9 +79,20 @@ public class AccessingDataJpaApplication {
 
 
 			log.info("");
-			log.info("Found with description 'Torchello':");
-			log.info(menuRepository.findByDescription("Torchello").toString());
+			log.info("Found with description 'Torchello's menu':");
+			log.info(menuRepository.findByDescription("Torchello's menu").toString());
 
+			log.info("");
+			log.info("-------------------------------");
+			log.info("find all Restaurants");
+			for(Restaurant restaurant:restaurantRepository.findAll()){
+				log.info(restaurant.toString());
+			}
+
+			log.info("");
+			log.info("");
+			log.info("-------------------------------");
+			log.info("adding relations");
 			meal1.addMenu(menu1);
 
 			Meal updatedMeal= mealRepository.save(meal1);

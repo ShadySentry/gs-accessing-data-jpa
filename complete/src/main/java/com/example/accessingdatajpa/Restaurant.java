@@ -34,4 +34,20 @@ public class Restaurant {
             menus.add(menu);
         }
     }
+
+    public void removeMenu(Menu menu){
+        notNull(menu,"menu can't be null");
+        if(menus.contains(menu)){
+            menus.remove(menu);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", votes=" + votes +
+                '}';
+    }
 }
