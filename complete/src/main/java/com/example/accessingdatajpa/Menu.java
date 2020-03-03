@@ -40,12 +40,13 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu{" +
-                "id=" + id +
-                ", menuDate=" + menuDate +
-                ", totalVotes=" + totalVotes +
-                ", enabled=" + enabled +
-                ", description='" + description + '\'' +
-                "meals:"+mealsAsString()+
+                "id= " + id +
+                ", menuDate= " + menuDate +
+                ", totalVotes= " + totalVotes +
+                ", enabled= " + enabled +
+                ", description= " + description + '\'' +
+                "meals: "+mealsAsString()+
+                "restaurant = "+restaurant+
                 '}';
     }
 
@@ -64,6 +65,4 @@ public class Menu {
 
         return mealsAsString.toString();
     }
-
-
 }

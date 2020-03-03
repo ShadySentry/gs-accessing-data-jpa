@@ -1,7 +1,9 @@
 package com.example.accessingdatajpa;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import static org.springframework.util.Assert.notNull;
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,24 +23,26 @@ public class Restaurant {
     private String description;
     private int votes;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST,mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "restaurant")
     private List<Menu> menus = new ArrayList<>();
 
-    protected Restaurant(){}
-    public Restaurant(String description){
-        notNull(description,"description can't be null");
+    protected Restaurant() {
     }
 
-    public void addMenu(Menu menu){
+    public Restaurant(String description) {
+        notNull(description, "description can't be null");
+    }
+
+    public void addMenu(Menu menu) {
         notNull(menu, "menu can't be null");
-        if(!menus.contains(menu)){
+        if (!menus.contains(menu)) {
             menus.add(menu);
         }
     }
 
-    public void removeMenu(Menu menu){
-        notNull(menu,"menu can't be null");
-        if(menus.contains(menu)){
+    public void removeMenu(Menu menu) {
+        notNull(menu, "menu can't be null");
+        if (menus.contains(menu)) {
             menus.remove(menu);
         }
     }
@@ -50,4 +55,23 @@ public class Restaurant {
                 ", votes=" + votes +
                 '}';
     }
+
+    String menusAsString() {
+        if (menus.isEmpty()) {
+            return "{No Meals}";
+        }
+        StringBuilder mealsAsString = new StringBuilder();
+        for (Menu menu : menus) {
+            mealsAsString.append("{");
+            mealsAsString.append("ID = " + menu.getId().toString());
+            mealsAsString.append("Date = " + menu.getMenuDate());
+            mealsAsString.append("total votes = " + menu.getTotalVotes());
+            mealsAsString.append("enabled = " + menu.isEnabled());
+            mealsAsString.append("description =" + menu.getDescription());
+            mealsAsString.append("}");
+        }
+
+        return mealsAsString.toString();
+    }
+
 }

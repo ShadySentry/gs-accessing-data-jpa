@@ -100,7 +100,31 @@ public class AccessingDataJpaApplication {
 
 			Menu updatedMenu = menuRepository.findById(menu1.getId()).orElse(null);
 			log.info("updatedMenu: "+"\n" + updatedMenu);
+			restaurant1.addMenu(menu1);
+			restaurant2.addMenu(menu2);
+
+			Restaurant updatedRestaurant1 = restaurantRepository.save(restaurant1);
+			Restaurant updatedRestaurant2 = restaurantRepository.save(restaurant2);
 			log.info("-------------------------------");
+			log.info("find all updated restaurants");
+			for(Restaurant restaurant: restaurantRepository.findAll()){
+				log.info(restaurant.toString());
+			}
+
+			log.info("");
+			log.info("find restaurant by id");
+			log.info(restaurantRepository.findById(restaurant1.getId()).toString());
+
+			log.info("\nfind restaurant by description");
+			log.info(restaurantRepository.findByDescription(restaurant2.getDescription()).toString());
+			log.info("-------------------------------");
+
+			log.info("\nupdated menu");
+			for (Menu menuWithRestaurant:menuRepository.findAll()){
+				log.info(menuWithRestaurant.toString());
+			}
+
+
 			log.info("-------------------------------");
 		};
 	}
