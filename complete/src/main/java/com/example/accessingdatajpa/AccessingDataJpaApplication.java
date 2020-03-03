@@ -1,15 +1,17 @@
 package com.example.accessingdatajpa;
 
+import com.example.accessingdatajpa.model.Meal;
+import com.example.accessingdatajpa.model.Menu;
+import com.example.accessingdatajpa.model.Restaurant;
+import com.example.accessingdatajpa.repository.MealRepository;
+import com.example.accessingdatajpa.repository.MenuRepository;
+import com.example.accessingdatajpa.repository.RestaurantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import javax.sql.DataSource;
-import java.sql.ResultSet;
 
 @SpringBootApplication
 public class AccessingDataJpaApplication {
@@ -127,11 +129,13 @@ public class AccessingDataJpaApplication {
 			log.info("find restaurant by id");
 			log.info(restaurantRepository.findById(restaurant1.getId()).toString());
 
-			log.info("\nfind restaurant by description");
+			log.info("");
+			log.info("find restaurant by description");
 			log.info(restaurantRepository.findByDescription(restaurant2.getDescription()).toString());
 			log.info("-------------------------------");
 
-			log.info("\nupdated menu");
+			log.info("");
+			log.info("updated menu");
 			for (Menu menuWithRestaurant:menuRepository.findAll()){
 				log.info(menuWithRestaurant.toString());
 			}

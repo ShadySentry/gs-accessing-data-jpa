@@ -1,13 +1,11 @@
-package com.example.accessingdatajpa;
+package com.example.accessingdatajpa.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +17,9 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date menuDate;
-    private Integer totalVotes;
+    private Date menuDate=Calendar.getInstance().getTime();
+    @Column(columnDefinition = "integer default '0'")
+    private Integer totalVotes=0;
     private boolean enabled;
     private String description;
 

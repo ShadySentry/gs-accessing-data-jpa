@@ -1,4 +1,4 @@
-package com.example.accessingdatajpa;
+package com.example.accessingdatajpa.model;
 
 import lombok.*;
 import org.springframework.util.Assert;
