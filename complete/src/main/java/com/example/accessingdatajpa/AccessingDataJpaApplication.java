@@ -6,7 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 
 @SpringBootApplication
@@ -17,6 +19,16 @@ public class AccessingDataJpaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AccessingDataJpaApplication.class);
 	}
+//todo: have to be in @Configuration bean. Also can be moved to application.properties and configured to correct dataSource. Code is below:
+//	@Bean
+//    DataSource dataSource(){
+//	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//	    dataSource.setDriverClassName("org.hsqldb.jdbc.jdbcdriver");
+//	    dataSource.setUsername("User");
+//	    dataSource.setPassword("123");
+//	    dataSource.setUrl("jdbc:hsqldb:file:D:/Temp/dataJpaTest");
+//	    return dataSource;
+//    }
 
 	@Bean
 	public CommandLineRunner demo(MealRepository mealRepository,
