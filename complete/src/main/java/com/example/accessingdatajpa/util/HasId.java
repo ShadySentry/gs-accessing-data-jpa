@@ -7,7 +7,6 @@ public interface HasId {
 
     void setId(Long id);
 
-
     default boolean isNew(){
         return getId()==null;
     }
