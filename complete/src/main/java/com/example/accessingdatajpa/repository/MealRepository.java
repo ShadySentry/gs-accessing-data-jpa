@@ -13,7 +13,9 @@ public interface MealRepository extends CrudRepository<Meal, Long> {
 
 	List<Meal> findByDescription(String description);
 
-	Optional findById(Long id);
+//	Meal findById(Integer id);
+
+	Optional<Meal> findById(Long id);
 
 	@Query("select m FROM Meal m join fetch Restaurant where m.id = ?1")
 	Meal getWithRestaurants(Long id);

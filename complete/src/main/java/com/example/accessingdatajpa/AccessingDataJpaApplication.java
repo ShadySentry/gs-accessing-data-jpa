@@ -62,7 +62,8 @@ public class AccessingDataJpaApplication {
 			log.info("");
 
 			// fetch an individual meal by ID
-			Meal meal = (Meal) mealRepository.findById(1L).orElse(new Meal("null",0));
+			Meal meal = mealRepository.findById(1L).orElse(null);
+//			Meal meal = mealRepository.findById(Long.valueOf("1")).orElse(null);
 			log.info("Meal found with findById(1):");
 			log.info("--------------------------------");
 			log.info(meal.toString());
