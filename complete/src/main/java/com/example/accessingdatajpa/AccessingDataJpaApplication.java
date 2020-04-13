@@ -13,13 +13,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Collections;
+
 @SpringBootApplication
 public class AccessingDataJpaApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(AccessingDataJpaApplication.class);
+		SpringApplication app = new SpringApplication(AccessingDataJpaApplication.class);
+		app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
+		app.run(args);
+//		SpringApplication.run(AccessingDataJpaApplication.class);
 	}
 //todo: have to be in @Configuration bean. Also can be moved to application.properties and configured to correct dataSource. Code is below:
 //	@Bean
