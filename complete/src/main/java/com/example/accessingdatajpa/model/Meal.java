@@ -1,5 +1,6 @@
 package com.example.accessingdatajpa.model;
 
+import com.example.accessingdatajpa.model.Menu;
 import lombok.*;
 import org.springframework.util.Assert;
 
