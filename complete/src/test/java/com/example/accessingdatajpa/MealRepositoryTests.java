@@ -38,7 +38,7 @@ public class MealRepositoryTests {
 	@Test
 	public void testFindByLastName() {
 		Meal meal = new Meal("desc", 1000);
-		entityManager.persist(mealRepository);
+		entityManager.persist(meal);
 
 		List<Meal> findByDesc = mealRepository.findByDescription(meal.getDescription());
 
