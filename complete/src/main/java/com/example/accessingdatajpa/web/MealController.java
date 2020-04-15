@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
+
+import static org.springframework.util.Assert.notNull;
 
 @Controller
 public class MealController {
     private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
     private final MealService mealService;
-
+    @Autowired
     public MealController(MealService mealService) {
         this.mealService = mealService;
     }
-
-    @Autowired
-
 
     @GetMapping("/meals")
     public @ResponseBody
@@ -38,11 +38,18 @@ public class MealController {
 
     @GetMapping("/meals/{id}")
     public Meal getMealById(@PathVariable Long id){
-        return null;
+        notNull(id,"id cant be null");
+        return mealService.findById(id).orElse(null);
+    }
+
+    @GetMapping("/meals/{description}")
+    public List<Meal> getMealByDescription(@Valid @PathVariable String description){
+        return mealService.getMealByDescription(description);
     }
 
     @GetMapping("/meals/filteredWithRestaurants")
     public List<Meal> getFilteredWithRestaurant(@RequestParam(required = false) Restaurant restaurant){
+
         return null;
     }
 

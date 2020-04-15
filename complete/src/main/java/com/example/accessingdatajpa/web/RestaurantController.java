@@ -6,12 +6,14 @@ import com.example.accessingdatajpa.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.util.Assert.notNull;
 
 @Controller
 public class RestaurantController {
@@ -31,6 +33,7 @@ public class RestaurantController {
 
     @GetMapping(value = "/restaurants/{id}")
     public @ResponseBody Restaurant getRestaurantById(@PathVariable Long id){
+        notNull(id,"restaurant id cant be null");
         log.info("/restaurants/{id}");
         return null;
     }
