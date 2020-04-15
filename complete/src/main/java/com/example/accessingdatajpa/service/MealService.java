@@ -1,6 +1,7 @@
 package com.example.accessingdatajpa.service;
 
 import com.example.accessingdatajpa.model.Meal;
+import com.example.accessingdatajpa.model.to.MealTo;
 import com.example.accessingdatajpa.repository.MealRepository;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,15 @@ public class MealService {
         return meals;
     }
 
-    public Optional<Meal> findById(Long id){
+    public Optional<Meal> getById(Long id){
         notNull(id,"id can't be null");
 
         return mealRepository.findById(id);
+    }
+
+    public Meal getByIdWithRestaurants(Long id){
+        notNull(id,"id cant be null");
+        return mealRepository.getWithRestaurants(id);
     }
 
     public void removeById(Long id){

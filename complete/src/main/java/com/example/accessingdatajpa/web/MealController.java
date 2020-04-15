@@ -3,7 +3,6 @@ package com.example.accessingdatajpa.web;
 import com.example.accessingdatajpa.AccessingDataJpaApplication;
 import com.example.accessingdatajpa.model.Meal;
 import com.example.accessingdatajpa.model.Restaurant;
-import com.example.accessingdatajpa.repository.MealRepository;
 import com.example.accessingdatajpa.service.MealService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +38,7 @@ public class MealController {
     @GetMapping("/meals/{id}")
     public Meal getMealById(@PathVariable Long id){
         notNull(id,"id cant be null");
-        return mealService.findById(id).orElse(null);
+        return mealService.getById(id).orElse(null);
     }
 
     @GetMapping("/meals/{description}")
@@ -47,9 +46,9 @@ public class MealController {
         return mealService.getMealByDescription(description);
     }
 
-    @GetMapping("/meals/filteredWithRestaurants")
-    public List<Meal> getFilteredWithRestaurant(@RequestParam(required = false) Restaurant restaurant){
-
+    @GetMapping("/meals/withRestaurants/{id}")
+    public List<Meal> getFilteredWithRestaurant(@RequestParam(required = false) Long id){
+        mealService.getByIdWithRestaurants(id);
         return null;
     }
 
