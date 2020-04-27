@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Collections;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.example.accessingdatajpa")
 public class AccessingDataJpaApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
